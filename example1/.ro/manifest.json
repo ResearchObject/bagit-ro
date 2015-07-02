@@ -8,12 +8,15 @@
   },
 
   "aggregates": [
+
     { "uri": "../data/numbers.csv",
       "mediatype": "text/csv"
     },
+
     { "uri": "../data/results.txt",
       "history": "provenance/results.prov.jsonld"
     },
+
     { "uri": "../data/README.md",
       "mediatype": "text/markdown",
       "authoredBy": {
@@ -21,6 +24,7 @@
         "orcid": "http://orcid.org/0000-0001-9842-9718"
       }
     },
+
     { "uri": "../data/analyse.py",
       "mediatype": "text/x-python",
       "conformsTo": "https://docs.python.org/2/reference/",
@@ -31,6 +35,7 @@
         "orcid": "http://orcid.org/0000-0001-9842-9718"
       }
     },
+
     { "uri": "https://gist.githubusercontent.com/anonymous/7fe620279ea4988a5a1e/raw/e55d9ea6af35ea67cfaf47b03a2b71f9026325fd/external.txt",
       "bundledAs": { "folder": "../data/",
                      "filename": "external.txt"
@@ -40,11 +45,13 @@
       }
     }
   ],
+
   "annotations": [
     { "about": ["../data/analyse.py", "../data/numbers.csv", "../results.txt"],
       "content": "../data/README.md",
       "oa:motivatedBy": "oa:describing"
     },
+
     { "about": "../data/numbers.csv",
       "content": "annotations/numbers.jsonld",
       "createdBy": {
