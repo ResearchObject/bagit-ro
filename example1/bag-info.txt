@@ -1,7 +1,7 @@
 Source-Organization: Example inc.
 Organization-Address: 1 Example Way
- Example City
- EX 00000, Examplia
+  Example City
+  EX 00000, Examplia
 Contact-Name: John Doe
 Contact-Email: john.doe@example.com
 Contact-Phone: +1-212-555-1337
