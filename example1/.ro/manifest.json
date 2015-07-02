@@ -1,0 +1,19 @@
+{ "@context": ["https://w3id.org/bundle/context"],
+  "@id": "../",
+  "aggregates": [
+    { "uri": "https://gist.githubusercontent.com/anonymous/7fe620279ea4988a5a1e/raw/e55d9ea6af35ea67cfaf47b03a2b71f9026325fd/external.txt",
+      "bundledAs": { "folder": "../data/",
+                     "filename": "external.txt"
+                   }
+    },
+    { "uri": "../data/analyse.py",
+      "mediatype": "text/x-python",
+      "conformsTo": "https://docs.python.org/2/reference/"
+    },
+    { "uri": "../data/numbers.csv",
+      "mediatype": "text/csv"
+    },
+    { "uri": "../data/results.txt"
+    }
+  ]
+}
