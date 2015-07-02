@@ -1,0 +1,7 @@
+{ "@context": { "@vocab": "http://purl.org/dc/terms/", "dcmi": "http://purl.org/dc/dcmitype/Dataset"},
+  "@id": "../../data/numbers.csv",
+  "@type": "dcmi:Dataset",
+  "title": "CSV files of beverage consumption",
+  "description": "A CSV file listing the number of cups/mugs consumed per person."
+
+}

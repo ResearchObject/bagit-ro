@@ -1,19 +1,56 @@
 { "@context": ["https://w3id.org/bundle/context"],
   "@id": "../",
+  "history": "https://github.com/ResearchObject/bagit-ro-ex1/commits/master",
+  "createdOn": "2015-07-02T09:46:00Z",
+  "createdBy": {
+    "name": "Stian Soiland-Reyes",
+    "orcid": "http://orcid.org/0000-0001-9842-9718"
+  },
+
   "aggregates": [
-    { "uri": "https://gist.githubusercontent.com/anonymous/7fe620279ea4988a5a1e/raw/e55d9ea6af35ea67cfaf47b03a2b71f9026325fd/external.txt",
-      "bundledAs": { "folder": "../data/",
-                     "filename": "external.txt"
-                   }
-    },
-    { "uri": "../data/analyse.py",
-      "mediatype": "text/x-python",
-      "conformsTo": "https://docs.python.org/2/reference/"
-    },
     { "uri": "../data/numbers.csv",
       "mediatype": "text/csv"
     },
-    { "uri": "../data/results.txt"
+    { "uri": "../data/results.txt",
+      "history": "provenance/results.prov.jsonld"
+    },
+    { "uri": "../data/README.md",
+      "mediatype": "text/markdown",
+      "authoredBy": {
+        "name": "Stian Soiland-Reyes",
+        "orcid": "http://orcid.org/0000-0001-9842-9718"
+      }
+    },
+    { "uri": "../data/analyse.py",
+      "mediatype": "text/x-python",
+      "conformsTo": "https://docs.python.org/2/reference/",
+      "retrievedFrom": "https://raw.githubusercontent.com/ResearchObject/bagit-ro-ex1/master/example1/data/analyse.py",
+      "retrievedOn": "2015-07-02T09:40:00Z",
+      "retrievedBy": {
+        "name": "Stian Soiland-Reyes",
+        "orcid": "http://orcid.org/0000-0001-9842-9718"
+      }
+    },
+    { "uri": "https://gist.githubusercontent.com/anonymous/7fe620279ea4988a5a1e/raw/e55d9ea6af35ea67cfaf47b03a2b71f9026325fd/external.txt",
+      "bundledAs": { "folder": "../data/",
+                     "filename": "external.txt"
+                   },
+      "authoredBy": {
+        "name": "John Doe"
+      }
+    }
+  ],
+  "annotations": [
+    { "about": ["../data/analyse.py", "../data/numbers.csv", "../results.txt"],
+      "content": "../data/README.md",
+      "oa:motivatedBy": "oa:describing"
+    },
+    { "about": "../data/numbers.csv",
+      "content": "annotations/numbers.jsonld",
+      "createdBy": {
+        "name": "Stian Soiland-Reyes",
+        "orcid": "http://orcid.org/0000-0001-9842-9718"
+      }
     }
   ]
 }
