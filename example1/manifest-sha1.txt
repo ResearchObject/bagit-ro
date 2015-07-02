@@ -1,3 +1,4 @@
 6dfcbd2c951ad3e65b5f705d9245129b91b4ccee  data/analyse.py
+ddf9aefab8abf92ff28a3bb80d2d0cd528bf8d7c  data/external.txt
 6e99ddf659e21ea9052e8f5e4c6d98fe5097b22b  data/numbers.csv
 a16b003d6cbdc971e4b8b59e9d3893d8a128b8e1  data/results.txt
