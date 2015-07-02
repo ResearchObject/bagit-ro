@@ -1,4 +1,4 @@
-543c3403d3e8920a8a6508dabf1e2847  data/analyse.py
-ab3ddecccc42407bf93b032c7421d8ab  data/external.txt
+5ebeffbb71b601953be62f49d78a7f01  data/analyse.py
 32bf1a6cde292d7df1aab03fadd6d681  data/numbers.csv
+55781f4df1d75a83de1f26ed92794fa3  data/README.md
 b1d5533bdf834910d590baee297f962a  data/results.txt

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-import csv
-numbers = csv.reader(open("numbers.csv"))
+import csv,sys
+numbers = csv.reader(open(sys.argv[1]))
 drinkers = []
 for row in numbers:
     if row[0] == "Name": continue # header row.. right?
