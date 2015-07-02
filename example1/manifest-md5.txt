@@ -1,0 +1,3 @@
+543c3403d3e8920a8a6508dabf1e2847  data/analyse.py
+32bf1a6cde292d7df1aab03fadd6d681  data/numbers.csv
+b1d5533bdf834910d590baee297f962a  data/results.txt
