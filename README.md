@@ -14,10 +14,11 @@ referencing _annotations_ and _provenance_.
 A BagIt bag can be considered a mechanism for serialization and transport
 consistency, while a Research Object can be considered a way to capture
 identity, annotations and provenance of the resources. As such, the two
-formats complement each-other.
+formats complement each-other. They are however
+[not directly compatible](#consideration)
 
-This GitHub repository contains an example of how a BagIt bag can also be a
-Research Object. Feel free to
+This GitHub repository explains by example a profile a BagIt bag that is also
+a Research Object. Feel free to
 [provide comments and raise issues](https://github.com/ResearchObject/bagit-ro-ex1/issues),
 or
 [suggest changes as pull requests](https://github.com/ResearchObject/bagit-ro-ex1/pulls).
@@ -32,6 +33,8 @@ Overview of this example:
   * [bagit.txt](example1/bagit.txt) - complies with BagIt version 0.97
   * [manifest-md5.txt](example1/manifest-md5.txt) - manifest, md5-sums of all of `data/`
   * [manifest-sha1.txt](example1/manifest-sha1.txt) - .. and sha1
+  * [tagmanifest-md5.txt](example1/tagmanifest-md5.txt) - tag manifest, md5-sums of the remaining _tag files_
+  * [tagmanifest-sha1.txt](example1/tagmanifest-sha1.txt) - .. and sha1
   * [fetch.txt](example1/fetch.txt) - external URLs to add to `data/`
   * [bag-info.txt](example1/bag-info.txt) - bag metadata such as size in bytes
   * [data/](example1/data/) - _payload_ directory - what this bag is primarily transferring
@@ -49,27 +52,43 @@ Overview of this example:
 
 ## BagIt overview
 
-A _bag_ in [BagIt](https://tools.ietf.org/html/draft-kunze-bagit-11) is a base
-folder (in this example [example1/](example1/)) that contains the file
-[bagit.txt](example1/bagit.txt) to identify the folder as a bag, and
-declare the version of the specification that is used.
+A [bag](https://tools.ietf.org/html/draft-kunze-bagit-11#section-2)
+in [BagIt](https://tools.ietf.org/html/draft-kunze-bagit-11) is a base
+folder (in this example [example1/](example1/)) that contains the
+[bagit declaration](https://tools.ietf.org/html/draft-kunze-bagit-11#section-2.1.1) in
+[bagit.txt](example1/bagit.txt). A bag contains a _payload_, the data files
+that are being transferred, in addition to _tag files_, metadata for the bag and
+its content.
 
 A [BagIt serialization](https://tools.ietf.org/html/draft-kunze-bagit-11#section-4)
 is typically a tar- or zip-file which contains the base folder.
 BagIt archives include at the root a subdirectory for the base folder of the
 bag, e.g. the ZIP file would contain `example1/bagit.txt` etc.
 
-The _payload_ of a bag is the files within a directory that
+The [payload](https://tools.ietf.org/html/draft-kunze-bagit-11#section-2.1.2)
+of a bag is the files within a directory that
 is always called [data](example1/data/). The `data` folder may
-contain artbitrary files and subdirectories.
+contain arbitrary files and subdirectories.
 
-The payload files are listed in one or more _manifest_ files that
+The payload files are listed in one or more
+[manifest](https://tools.ietf.org/html/draft-kunze-bagit-11#section-2.1.3) files that
 providing hashes of the file content. The BagIt specification specifies the
-two most common hashing mechanisms _md5_ and _sha1_, represented by
+two most common hashing mechanisms _md5_ and _sha1_ to be represented by
 [manifest-md5.txt](example1/manifest-md5.txt) and
 [manifest-sha1.txt](example1/manifest-sha1.txt).
 
-Payload files that are too big to practically include in a BagIt archive
-can be referenced externally in [fetch.txt](example1/fetch.txt)
+Files that are too big to practically include in a BagIt archive
+can be [referenced externally](https://tools.ietf.org/html/draft-kunze-bagit-11#section-2.2.3)
+in [fetch.txt](example1/fetch.txt), which includes the
+URLs, expected file size and destination filenames within the bag base directory.
+
+A bag can also contain
+[other tag files](https://tools.ietf.org/html/draft-kunze-bagit-11#section-2.2.4),
+which would be listed in a separate
+[tag manifest](https://tools.ietf.org/html/draft-kunze-bagit-11#section-2.2.1),
+e.g. [tagmanifest-md5.txt](tagmanifest-md5.txt) and
+[tagmanifest-sha1.txt](tagmanifest-sha1.txt)
 
 ## Research Object overview
+
+## Considerations
