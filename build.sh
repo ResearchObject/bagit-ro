@@ -5,16 +5,18 @@ md5sum data/* > manifest-md5.txt
 sha1sum data/* > manifest-sha1.txt
 rm data/external.txt # :)
 cd ..
-rm -f example1.zip
-zip -q -r example1.zip example1
-echo "Built BagIt example1.zip"
+BAGIT=example1.bagit.zip
+rm -f $BAGIT
+zip -q -r $BAGIT example1
+echo Built BagIt $BAGIT
 
 
-rm -f example1.bundle.zip
+BUNDLE=example1.bundle.zip
+rm -f $BUNDLE
 cd example1
 echo -n application/vnd.wf4ever.robundle+zip > mimetype
-zip -q -0 -X ../example1.bundle.zip mimetype
+zip -q -0 -X ../$BUNDLE mimetype
 rm mimetype
-zip -q -r ../example1.bundle.zip .
-echo "Built RO Bundle example1.bundle.zip"
+zip -q -r ../$BUNDLE .
+echo Built RO Bundle $BUNDLE
 cd ..
