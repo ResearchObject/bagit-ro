@@ -23,6 +23,8 @@ a Research Object. Feel free to
 or
 [suggest changes as pull requests](https://github.com/ResearchObject/bagit-ro-ex1/pulls).
 
+Run the `build.sh` script (requires `zip`, `md5sum`, `sha1sum`, `find`) to
+generate `example1.bagit.zip` and the corresponding `example1.bundle.zip`.
 
 
 ## Example overview
@@ -68,27 +70,141 @@ bag, e.g. the ZIP file would contain `example1/bagit.txt` etc.
 The [payload](https://tools.ietf.org/html/draft-kunze-bagit-11#section-2.1.2)
 of a bag is the files within a directory that
 is always called [data](example1/data/). The `data` folder may
-contain arbitrary files and subdirectories.
+contain arbitrary files and subdirectories. In this example we include a
+simple [CSV data file](example1/data/numbers.csv), an
+analytical [script](example1/data/analyse.py), and
+the [results](example1/data/results.txt) of running that script. In addition,
+a textual [README.md](example1/data/README.md) is included to describe this
+execution.
 
 The payload files are listed in one or more
-[manifest](https://tools.ietf.org/html/draft-kunze-bagit-11#section-2.1.3) files that
-providing hashes of the file content. The BagIt specification specifies the
+[manifest](https://tools.ietf.org/html/draft-kunze-bagit-11#section-2.1.3) files
+that provide hashes of the file content. The BagIt specification specifies the
 two most common hashing mechanisms _md5_ and _sha1_ to be represented by
 [manifest-md5.txt](example1/manifest-md5.txt) and
-[manifest-sha1.txt](example1/manifest-sha1.txt).
+[manifest-sha1.txt](example1/manifest-sha1.txt). Other hash mechanisms
+can also be added (e.g. sha512), but the content of any `manifest-*` file
+need to follow the `$hash $filename` pattern.
 
 Files that are too big to practically include in a BagIt archive
-can be [referenced externally](https://tools.ietf.org/html/draft-kunze-bagit-11#section-2.2.3)
+can be
+[referenced externally](https://tools.ietf.org/html/draft-kunze-bagit-11#section-2.2.3)
 in [fetch.txt](example1/fetch.txt), which includes the
-URLs, expected file size and destination filenames within the bag base directory.
+URLs to download, expected file size and destination filenames
+within the bag base directory.
+It is undefined in the BagIt specification which `Accept*` headers should be
+used in such a retrieval, or if any authentication might be required. This
+example do not need to make any assumption for this as the
+referenced [external.txt](https://gist.githubusercontent.com/anonymous/7fe620279ea4988a5a1e/raw/e55d9ea6af35ea67cfaf47b03a2b71f9026325fd/external.txt)
+is only available in a single representation. It is undefined in the BagIt
+specification if the resources in `fetch.txt` should be considered when
+creating `manifest-*` and in `Payload-Oxum`, this
+example assumes they should *not* be included. It is undefined in the BagIt
+specification what is the expected interpretation if a file in `fetch.txt`
+already exists in the bag's `data` directory.
 
 A bag can also contain
 [other tag files](https://tools.ietf.org/html/draft-kunze-bagit-11#section-2.2.4),
 which would be listed in a separate
 [tag manifest](https://tools.ietf.org/html/draft-kunze-bagit-11#section-2.2.1),
 e.g. [tagmanifest-md5.txt](tagmanifest-md5.txt) and
-[tagmanifest-sha1.txt](tagmanifest-sha1.txt)
+[tagmanifest-sha1.txt](tagmanifest-sha1.txt). In this example, the tag manifest
+lists the content of the [.ro](analyse1/.ro/) directory.
+It is undefined in the BagIt specification if the remaining tag files
+(e.g. `bag-info.txt` or `fetch.txt`) should be included in the tag manifest,
+this example assumes they should *not* be included.
 
 ## Research Object overview
 
+A [Research Object](http://www.researchobject.org/) (RO) is conceptually an
+aggregation of related resources, an assignment of their identities, and
+any relevant annotations and provenance statements. The
+[Research Object model](https://w3id.org/ro/) specifies how to
+declare these relations, combining existing _Linked Data_ standard like
+[OAI-ORE](...ORE),
+[W3C Annotation Data Model](http://www.w3.org/TR/annotation-model/)
+and [W3C PROV](http://www.w3.org/TR/prov-o/).
+
+Serialized as a
+[Research Object Bundle](https://w3id.org/bundle/), some or all of those
+resources are included in the encapsulating ZIP archive together
+with a JSON-LD [manifest.json](example1/.ro/manifest.json).
+
+The [aggregates](example1/.ro/manifest.json#L10) section of the manifest
+essentially duplicate the filenames of [manifest-md5.txt](manifest-md5.txt)
+to list the payload, both embedded (e.g. `../data/numbers.csv`) and
+[external resources](example1/.ro/manifest.json#L9). Note that local paths are
+relative to the `.ro/` folder.
+
+This `aggregates` listing provides hooks for additional metadata and
+provenance, e.g.
+[mediatype](example1/.ro/manifest.json#L13),
+[authoredBy](example1/.ro/manifest.json#L22) and
+[retrievedFrom](example1/.ro/manifest.json#L31).
+A file can claim to conform to a standard,
+minimum information checklist, requirements or
+similar using [conformsTo](example1/.ro/manifest.json#L13).
+
+If more detailed provenance is available, then
+[history](example1/.ro/manifest.json#L17) can link to a
+separate provenance trace, e.g. a
+[PROV-O RDF file](example1/.ro/provenance/results.prov.json), although any kind of
+embedded or external provenance resource could be
+appropriate (e.g. log file, word document, git repository).
+
+Annotations about any of the resources in the bag (or the bag itself)
+can be linked to from the [annotations](example1/.ro/manifest.json#L49)
+section. Here `about` specifies one or more resources that are annotated,
+while `content` links to the annotation content, which could be any aggregated
+or external resource (e.g [../data/README.md](example1/data/README.md) that
+describes `analyse.py`, `numbers.csv` and `results.txt`), or a
+metadata file under `.ro/annotations/`, typically in a Linked Data format.
+In this example,
+[annotations/numbers.jsonld](example1/.ro/annotations/numbers.jsonld)
+provide semantic annotations of [../data/numbers.csv](example1/data/numbers.csv)
+in JSON-LD format.
+
+It is customary in Research Object Bundles to keep non-payload files (e.g. the
+semantic annotation content) within `.ro/` and are not listed under
+`aggregates`, while payload are listed under `aggregates`. In Research Object
+BagIt archives, the payload files are exclusively within the `data/` folder.
+The `.ro` content is listed in the
+[tag manifest](example1/tagmanifest-md5.txt), while the
+payload is listed under in the [payload manifest](example1/manifest-md5.txt)
+and the [fetch file](example1/fetch.txts)
+
+
 ## Considerations
+
+A RO Bundle is fundamentally not very different from an archived
+BagIt bag, except that in the RO Bundle, the `.ro/` is in the root
+directory together with a marker `mimetype` file to help mime magic-like tools.
+
+[BagIt serialization](https://tools.ietf.org/html/draft-kunze-bagit-11#section-4)
+mandates that a BagIt archive contains only a single directory, which is the
+base directory of the bag. While in theory a hybrid RO Bundle and
+BagIt ZIP archive could exist, it would have to use the bag name `.ro` and
+could not include the `mimetype` file. In addition the payload would be
+contained in `.ro/data/`, which is not what you would expect from the
+RO Bundle specification.
+
+This example instead shows a variation of RO Bundle which contains the
+Research Object within the bag of an arbitrary name, thus the RO manifest in a
+Research Object BagIt archive is in this example at
+[example1/.ro/manifest.json/](example1/.ro/manifest.json) rather than
+`.ro/manifest.json`.
+
+The interpretation of `manifest.json` according to the
+[RO Bundle specification](https://w3id.org/bundle/#manifest-json)
+assumes `/` is the root of the ZIP file, to also be the root of the RO.
+A BagIt bag on the other hand, is not necessarily rooted within an
+archive, and could be living standalone within a file system directory,
+or be exposed on the Web at an arbitrary URL base. The name of the containing
+bag is not declared outside its directory name. The RO manifest and annotations
+in this approach therefore uses only relative URI paths, e.g.
+`../data/analyse.py`, while the RO Bundle
+manifest would have used `/data/analyse.py`.
+
+The [build.sh](build.sh#L22) script shows how this structure mean that a
+Research Object BagIt archive can be converted to a Research Object Bundle
+by adding the `mimetype` file and simply archiving from within the bag directory.

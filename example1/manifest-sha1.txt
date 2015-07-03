@@ -1,5 +1,4 @@
 772d5a86fe66d431b1299a0d733787b0ad5d2538  data/README.md
 aaf0b3590bfbda2d51fc9af832226fc8cfbf7e90  data/analyse.py
-ddf9aefab8abf92ff28a3bb80d2d0cd528bf8d7c  data/external.txt
 6e99ddf659e21ea9052e8f5e4c6d98fe5097b22b  data/numbers.csv
 a16b003d6cbdc971e4b8b59e9d3893d8a128b8e1  data/results.txt
