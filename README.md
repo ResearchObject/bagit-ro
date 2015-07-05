@@ -1,4 +1,4 @@
-# Example of Research Object as a BagIt container
+# BagIt Research Object example
 
 [BagIt](https://tools.ietf.org/html/draft-kunze-bagit-11) is an Internet Draft
 that specifies a file system structure for transferring and archiving a
