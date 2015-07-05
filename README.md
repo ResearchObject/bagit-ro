@@ -150,7 +150,8 @@ If more detailed provenance is available, then
 separate provenance trace, e.g. a
 [PROV-O RDF file](example1/.ro/provenance/results.prov.json), although any kind of
 embedded or external provenance resource could be
-appropriate (e.g. log file, word document, git repository).
+appropriate (e.g. log file, word document, git repository). Provenance can
+also be included for the [research object itself](example1/.ro/manifest.json#L3).
 
 Annotations about any of the resources in the bag (or the bag itself)
 can be linked to from the [annotations](example1/.ro/manifest.json#L49)
