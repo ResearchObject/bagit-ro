@@ -15,7 +15,7 @@ A BagIt bag can be considered a mechanism for serialization and transport
 consistency, while a Research Object can be considered a way to capture
 identity, annotations and provenance of the resources. As such, the two
 formats complement each-other. They are however
-[not directly compatible](#consideration)
+[not directly compatible](#considerations).
 
 This GitHub repository explains by example a profile a BagIt bag that is also
 a Research Object. Feel free to
@@ -49,7 +49,7 @@ Overview of this example:
     * [annotations/](example1/.ro/annotations/) - structured annotations of RO and RO content, e.g. user-provided descriptions
       * [numbers.jsonld](example1/.ro/annotations/numbers.jsonld) - JSON-LD annotations, describing `data/numbers.csv`
     * [provenance/](example1/.ro/provenance/) - provenance of RO content
-      * [result.prov.jsonld](example1/.ro/provenance/result.prov.jsonld) - Provenance of execution of `data/analyse.py`, which created `data/results.txt`
+      * [result.prov.jsonld](example1/.ro/provenance/results.prov.jsonld) - Provenance of execution of `data/analyse.py`, which created `data/results.txt`
 
 
 ## BagIt overview
@@ -65,7 +65,7 @@ its content.
 A [BagIt serialization](https://tools.ietf.org/html/draft-kunze-bagit-11#section-4)
 is typically a tar- or zip-file which contains the base folder.
 BagIt archives include at the root a subdirectory for the base folder of the
-bag, e.g. the ZIP file would contain `example1/bagit.txt` etc.
+bag, e.g. the ZIP file would contain `example1/bagit.txt`.g
 
 The [payload](https://tools.ietf.org/html/draft-kunze-bagit-11#section-2.1.2)
 of a bag is the files within a directory that
@@ -107,9 +107,9 @@ A bag can also contain
 [other tag files](https://tools.ietf.org/html/draft-kunze-bagit-11#section-2.2.4),
 which would be listed in a separate
 [tag manifest](https://tools.ietf.org/html/draft-kunze-bagit-11#section-2.2.1),
-e.g. [tagmanifest-md5.txt](tagmanifest-md5.txt) and
-[tagmanifest-sha1.txt](tagmanifest-sha1.txt). In this example, the tag manifest
-lists the content of the [.ro](analyse1/.ro/) directory.
+e.g. [tagmanifest-md5.txt](example1/tagmanifest-md5.txt) and
+[tagmanifest-sha1.txt](example1/tagmanifest-sha1.txt). In this example, the tag manifest
+lists the content of the [.ro](example1/.ro/) directory.
 It is undefined in the BagIt specification if the remaining tag files
 (e.g. `bag-info.txt` or `fetch.txt`) should be included in the tag manifest,
 this example assumes they should *not* be included.
