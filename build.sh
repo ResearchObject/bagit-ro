@@ -7,8 +7,8 @@ md5sum data/* > manifest-md5.txt
 sha1sum data/* > manifest-sha1.txt
 rm -f data/external.txt # :)
 
-find .ro -type f | xargs md5sum > tagmanifest.md5.txt
-find .ro -type f | xargs sha1sum > tagmanifest.sha1.txt
+find .ro -type f | xargs md5sum > tagmanifest-md5.txt
+find .ro -type f | xargs sha1sum > tagmanifest-sha1.txt
 
 cd ..
 BAGIT=example1.bagit.zip
