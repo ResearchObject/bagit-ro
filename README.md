@@ -121,20 +121,24 @@ aggregation of related resources, an assignment of their identities, and
 any relevant annotations and provenance statements. The
 [Research Object model](https://w3id.org/ro/) specifies how to
 declare these relations, combining existing _Linked Data_ standard like
-[OAI-ORE](...ORE),
+[OAI-ORE](http://www.openarchives.org/ore/1.0/toc),
 [W3C Annotation Data Model](http://www.w3.org/TR/annotation-model/)
 and [W3C PROV](http://www.w3.org/TR/prov-o/).
 
 Serialized as a
 [Research Object Bundle](https://w3id.org/bundle/), some or all of those
 resources are included in the encapsulating ZIP archive together
-with a JSON-LD [manifest.json](example1/.ro/manifest.json).
+with a [JSON-LD](http://json-ld.org/) manifest,
+[.ro/manifest.json](example1/.ro/manifest.json).
+
+A Research Object BagIt archive follows the same structure as an Research Object
+Bundle, except that the base directory is the bag base (e.g. `example1/`),
+rather than the root folder of the ZIP archive (`/`).
 
 The [aggregates](example1/.ro/manifest.json#L10) section of the manifest
-essentially duplicate the filenames of [manifest-md5.txt](manifest-md5.txt)
-to list the payload, both embedded (e.g. `../data/numbers.csv`) and
-[external resources](example1/.ro/manifest.json#L9). Note that local paths are
-relative to the `.ro/` folder.
+list the payload files, both embedded (e.g. `../data/numbers.csv`) and
+[external resources](example1/.ro/manifest.json#L9) (e.g. `http://example.com/doc1`).
+Note that local paths are under `../data/`, relative to the `.ro/` folder.
 
 This `aggregates` listing provides hooks for additional metadata and
 provenance, e.g.
@@ -143,17 +147,17 @@ provenance, e.g.
 [retrievedFrom](example1/.ro/manifest.json#L31).
 A file can claim to conform to a standard,
 minimum information checklist, requirements or
-similar using [conformsTo](example1/.ro/manifest.json#L13).
+similar using [conformsTo](example1/.ro/manifest.json#L30).
 
 If more detailed provenance is available, then
 [history](example1/.ro/manifest.json#L17) can link to a
 separate provenance trace, e.g. a
-[PROV-O RDF file](example1/.ro/provenance/results.prov.json), although any kind of
+[PROV-O RDF file](example1/.ro/provenance/results.prov.jsonld), although any kind of
 embedded or external provenance resource could be
 appropriate (e.g. log file, word document, git repository). Provenance can
 also be included for the [research object itself](example1/.ro/manifest.json#L3).
 
-Annotations about any of the resources in the bag (or the bag itself)
+Annotations about any of the resources in the bag (or the RO itself)
 can be linked to from the [annotations](example1/.ro/manifest.json#L49)
 section. Here `about` specifies one or more resources that are annotated,
 while `content` links to the annotation content, which could be any aggregated
@@ -165,31 +169,39 @@ In this example,
 provide semantic annotations of [../data/numbers.csv](example1/data/numbers.csv)
 in JSON-LD format.
 
-It is customary in Research Object Bundles to keep non-payload files (e.g. the
-semantic annotation content) within `.ro/` and are not listed under
-`aggregates`, while payload are listed under `aggregates`. In Research Object
-BagIt archives, the payload files are exclusively within the `data/` folder.
+It is customary in Research Object Bundles for non-payload files to not be
+listed under `aggregates` and to be stored under `.ro/`. In Research Object
+BagIt archives follow this convention, in addition the payload files
+must exclusively be within the `data/` folder (or be external URLs).
 The `.ro` content is listed in the
 [tag manifest](example1/tagmanifest-md5.txt), while the
 payload is listed under in the [payload manifest](example1/manifest-md5.txt)
-and the [fetch file](example1/fetch.txts)
+with external URLs in the [fetch file](example1/fetch.txt).
 
 
 ## Considerations
 
+The combination of BagIt and Research Object adds:
+
+* RO consistency with checksums for payload and metadata
+* Structured metadata, provenande and annotations for the bag and its content
+  * With extensions in JSON-LD using any Linked Data vocabulary
+* Graceful degradation/conversion to plain BagIt or RO Bundle
+
 A RO Bundle is fundamentally not very different from an archived
 BagIt bag, except that in the RO Bundle, the `.ro/` is in the root
-directory together with a marker `mimetype` file to help mime magic-like tools.
+directory together with a marker `mimetype` file to help _mime magic_-like tools
+identify the file type.
 
 [BagIt serialization](https://tools.ietf.org/html/draft-kunze-bagit-11#section-4)
-mandates that a BagIt archive contains only a single directory, which is the
-base directory of the bag. While in theory a hybrid RO Bundle and
+mandates that a BagIt archive contains only a single directory when unpacked,
+which is the base directory of the bag. While in theory a hybrid RO Bundle and
 BagIt ZIP archive could exist, it would have to use the bag name `.ro` and
-could not include the `mimetype` file. In addition the payload would be
-contained in `.ro/data/`, which is not what you would expect from the
-RO Bundle specification.
+could not include the `mimetype` file without a hack. In addition the
+payload would then be contained in `.ro/data/`, which is not what you would
+expect from the RO Bundle specification.
 
-This example instead shows a variation of RO Bundle which contains the
+The approach shown here is a variation of RO Bundle which contains the
 Research Object within the bag of an arbitrary name, thus the RO manifest in a
 Research Object BagIt archive is in this example at
 [example1/.ro/manifest.json/](example1/.ro/manifest.json) rather than
@@ -198,7 +210,8 @@ Research Object BagIt archive is in this example at
 The interpretation of `manifest.json` according to the
 [RO Bundle specification](https://w3id.org/bundle/#manifest-json)
 assumes `/` is the root of the ZIP file, to also be the root of the RO.
-A BagIt bag on the other hand, is not necessarily rooted within an
+
+A BagIt bag is not necessarily rooted within an
 archive, and could be living standalone within a file system directory,
 or be exposed on the Web at an arbitrary URL base. The name of the containing
 bag is not declared outside its directory name. The RO manifest and annotations
@@ -206,6 +219,50 @@ in this approach therefore uses only relative URI paths, e.g.
 `../data/analyse.py`, while the RO Bundle
 manifest would have used `/data/analyse.py`.
 
+Developers can struggle to generate correct relative paths. An
+alternative approach to move `/.ro/manifest.json` to `/manifest.json`
+could improve on this, but would mean the manifest would no longer be
+directly usable also as an RO Bundle manifest.
+
 The [build.sh](build.sh#L22) script shows how this structure mean that a
 Research Object BagIt archive can be converted to a Research Object Bundle
 by adding the `mimetype` file and simply archiving from within the bag directory.
+
+A similar conversion from RO Bundle to Research Object BagIt would require
+moving its embedded resources to `data/` and rewrite the local paths in its
+manifest and annotations.
+
+Having two kinds of manifests (`.ro/manifest.json` and `.ro/manifest.json`)
+can be confusing, and can lead to inconsistency if a tool supporting only
+one of these kind is modifying an RO BagIt.  
+
+The `bag-info.txt` format supports some
+[basic bag-level metadata](https://tools.ietf.org/html/draft-kunze-bagit-11#section-2.2.2), e.g.
+`Bagging-Date`, `Contact-Phone` and `Organization-Address`. While some of these
+might seem archaic, "other arbitrary metadata elements may also be present.",
+allowing extensions.
+
+The BagIt specification has no requirements for such alternative elements
+(e.g.  they are not [RFC 2822](https://tools.ietf.org/html/rfc2822) headers),
+and it is unclear if any whitespace
+(e.g. newlines and indentation) form part of the BagIt values or not.
+
+An alternative approach to dual manifests could therefore be to
+structure the RO Manifest within `bag-info.txt`, e.g.
+with the complete `.ro/manifest.json` structure under a
+[Research-Object](https://gist.github.com/stain/cc1046ad861b11bf3ba6#file-bag-info-txt-L14) key,
+which would still duplicate (and get out of sync) the list of paths under `aggregates`, and would
+require careful JSON parsing and writing to ensure the JSON is correctly
+interpreted as a single BagIt element value.
+The value of this is mainly for manual BagIt consumption, as BagIt tools would
+not recognize the need to update the `Research-Object` element. This would
+however come at a cost of being harder to read/write the JSON-LD manifest,
+and would not preserve the immediate interoperability with RO Bundles.
+
+An approach of split out of [multiple `RO-*`` keys](https://gist.github.com/stain/23080e58158a62533052)
+is not particularly promising, even if it would get rid of the `aggregates`
+duplication.  The difficulty here is that `bag-info.txt` is not
+hierarchical, and so per-file provenande and annotations are hard
+to structure without defining a mini-syntax per field with clear
+escape rules (e.g. catering for filenames with spaces). It would also no
+longer be possible to extend the manifest with custom vocabularies.
