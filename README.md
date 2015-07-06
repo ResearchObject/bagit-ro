@@ -1,4 +1,4 @@
-# BagIt Research Object example
+# Research Object BagIt archive
 
 [BagIt](https://tools.ietf.org/html/draft-kunze-bagit-11) is an Internet Draft
 that specifies a file system structure for transferring and archiving a
@@ -17,7 +17,7 @@ identity, annotations and provenance of the resources. As such, the two
 formats complement each-other. They are however
 [not directly compatible](#considerations).
 
-This GitHub repository explains by example a profile a BagIt bag that is also
+This GitHub repository explains by example a profile for a BagIt bag to also be
 a Research Object. Feel free to
 [provide comments and raise issues](https://github.com/ResearchObject/bagit-ro-ex1/issues),
 or
