@@ -240,7 +240,16 @@ The `bag-info.txt` format supports some
 [basic bag-level metadata](https://tools.ietf.org/html/draft-kunze-bagit-11#section-2.2.2), e.g.
 `Bagging-Date`, `Contact-Phone` and `Organization-Address`. While some of these
 might seem archaic, "other arbitrary metadata elements may also be present.",
-allowing extensions.
+allowing extensions. 
+
+For Research Object BagIt archives SHOULD specify the [BagIt profile](https://github.com/ruebot/bagit-profiles):
+
+```
+    BagIt-Profile-Identifier: https://rawgit.com/ResearchObject/bagit-ro-ex1/master/profile.json
+```
+
+**FIXME:** Permanent URI for the bagit-ro profile
+
 
 The BagIt specification has no requirements for such alternative elements
 (e.g.  they are not [RFC 2822](https://tools.ietf.org/html/rfc2822) headers),
