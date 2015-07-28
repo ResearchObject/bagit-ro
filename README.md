@@ -44,12 +44,12 @@ Overview of this example:
     * [numbers.csv](example1/data/numbers.csv) - Raw data as CSV-file
     * [analyse.py](example1/data/analyse.py) - A script to analyze the CSV
     * [results.txt](example1/data/results.txt) - Output from script
-  * [.ro/](example1/.ro/) - _tag directory_ for Research Object metadata
-    * [manifest.json](example1/.ro/manifest.json) - RO [manifest](https://w3id.org/bundle#manifest) as JSON-LD
-    * [annotations/](example1/.ro/annotations/) - structured annotations of RO and RO content, e.g. user-provided descriptions
-      * [numbers.jsonld](example1/.ro/annotations/numbers.jsonld) - JSON-LD annotations, describing `data/numbers.csv`
-    * [provenance/](example1/.ro/provenance/) - provenance of RO content
-      * [result.prov.jsonld](example1/.ro/provenance/results.prov.jsonld) - Provenance of execution of `data/analyse.py`, which created `data/results.txt`
+  * [metadata](example1/metadata/) - _tag directory_ for Research Object metadata
+    * [manifest.json](example1/metadata/manifest.json) - RO [manifest](https://w3id.org/bundle#manifest) as JSON-LD
+    * [annotations/](example1/metadata/annotations/) - structured annotations of RO and RO content, e.g. user-provided descriptions
+      * [numbers.jsonld](example1/metadata/annotations/numbers.jsonld) - JSON-LD annotations, describing `data/numbers.csv`
+    * [provenance/](example1/metadata/provenance/) - provenance of RO content
+      * [result.prov.jsonld](example1/metadata/provenance/results.prov.jsonld) - Provenance of execution of `data/analyse.py`, which created `data/results.txt`
 
 
 ## BagIt overview
@@ -109,7 +109,7 @@ which would be listed in a separate
 [tag manifest](https://tools.ietf.org/html/draft-kunze-bagit-11#section-2.2.1),
 e.g. [tagmanifest-md5.txt](example1/tagmanifest-md5.txt) and
 [tagmanifest-sha1.txt](example1/tagmanifest-sha1.txt). In this example, the tag manifest
-lists the content of the [.ro](example1/.ro/) directory.
+lists the content of the [metadata](example1/metadata/) directory.
 It is undefined in the BagIt specification if the remaining tag files
 (e.g. `bag-info.txt` or `fetch.txt`) should be included in the tag manifest,
 this example assumes they should *not* be included.
@@ -119,7 +119,7 @@ this example assumes they should *not* be included.
 A [Research Object](http://www.researchobject.org/) (RO) is conceptually an
 aggregation of related resources, an assignment of their identities, and
 any relevant annotations and provenance statements. The
-[Research Object model](https://w3id.org/ro/) specifies how to
+[Research Object model](https://w3id.orgmetadata/) specifies how to
 declare these relations, combining existing _Linked Data_ standard like
 [OAI-ORE](http://www.openarchives.org/ore/1.0/toc),
 [W3C Annotation Data Model](http://www.w3.org/TR/annotation-model/)
@@ -128,52 +128,53 @@ and [W3C PROV](http://www.w3.org/TR/prov-o/).
 Serialized as a
 [Research Object Bundle](https://w3id.org/bundle/), some or all of those
 resources are included in the encapsulating ZIP archive together
-with a [JSON-LD](http://json-ld.org/) manifest,
-[.ro/manifest.json](example1/.ro/manifest.json).
+with a [JSON-LD](http://json-ld.org/) manifest, 
+[metadata/manifest.json](example1/metadata/manifest.json).
 
 A Research Object BagIt archive follows the same structure as an Research Object
 Bundle, except that the base directory is the bag base (e.g. `example1/`),
-rather than the root folder of the ZIP archive (`/`).
+rather than the root folder of the ZIP archive (`/`). The RO Bundle's 
+`metadata/` folder is instead called `metadata/` in a Research Object BagIt.
 
-The [aggregates](example1/.ro/manifest.json#L10) section of the manifest
+The [aggregates](example1/metadata/manifest.json#L10) section of the manifest
 list the payload files, both embedded (e.g. `../data/numbers.csv`) and
-[external resources](example1/.ro/manifest.json#L9) (e.g. `http://example.com/doc1`).
-Note that local paths are under `../data/`, relative to the `.ro/` folder.
+[external resources](example1/metadata/manifest.json#L9) (e.g. `http://example.com/doc1`).
+Note that local paths are under `../data/`, relative to the `metadata/` folder.
 
 This `aggregates` listing provides hooks for additional metadata and
 provenance, e.g.
-[mediatype](example1/.ro/manifest.json#L13),
-[authoredBy](example1/.ro/manifest.json#L22) and
-[retrievedFrom](example1/.ro/manifest.json#L31).
+[mediatype](example1/metadata/manifest.json#L13),
+[authoredBy](example1/metadata/manifest.json#L22) and
+[retrievedFrom](example1/metadata/manifest.json#L31).
 A file can claim to conform to a standard,
 minimum information checklist, requirements or
-similar using [conformsTo](example1/.ro/manifest.json#L30).
+similar using [conformsTo](example1/metadata/manifest.json#L30).
 
 If more detailed provenance is available, then
-[history](example1/.ro/manifest.json#L17) can link to a
+[history](example1/metadata/manifest.json#L17) can link to a
 separate provenance trace, e.g. a
-[PROV-O RDF file](example1/.ro/provenance/results.prov.jsonld), although any kind of
+[PROV-O RDF file](example1/metadata/provenance/results.prov.jsonld), although any kind of
 embedded or external provenance resource could be
 appropriate (e.g. log file, word document, git repository). Provenance can
-also be included for the [research object itself](example1/.ro/manifest.json#L3).
+also be included for the [research object itself](example1/metadata/manifest.json#L3).
 
 Annotations about any of the resources in the bag (or the RO itself)
-can be linked to from the [annotations](example1/.ro/manifest.json#L49)
+can be linked to from the [annotations](example1/metadata/manifest.json#L49)
 section. Here `about` specifies one or more resources that are annotated,
 while `content` links to the annotation content, which could be any aggregated
 or external resource (e.g [../data/README.md](example1/data/README.md) that
 describes `analyse.py`, `numbers.csv` and `results.txt`), or a
-metadata file under `.ro/annotations/`, typically in a Linked Data format.
+metadata file under `metadata/annotations/`, typically in a Linked Data format.
 In this example,
-[annotations/numbers.jsonld](example1/.ro/annotations/numbers.jsonld)
+[annotations/numbers.jsonld](example1/metadata/annotations/numbers.jsonld)
 provide semantic annotations of [../data/numbers.csv](example1/data/numbers.csv)
 in JSON-LD format.
 
 It is customary in Research Object Bundles for non-payload files to not be
-listed under `aggregates` and to be stored under `.ro/`. In Research Object
+listed under `aggregates` and to be stored under `metadata/`. In Research Object
 BagIt archives follow this convention, in addition the payload files
 must exclusively be within the `data/` folder (or be external URLs).
-The `.ro` content is listed in the
+The `metadata/` content is listed in the
 [tag manifest](example1/tagmanifest-md5.txt), while the
 payload is listed under in the [payload manifest](example1/manifest-md5.txt)
 with external URLs in the [fetch file](example1/fetch.txt).
@@ -189,7 +190,7 @@ The combination of BagIt and Research Object adds:
 * Graceful degradation/conversion to plain BagIt or RO Bundle
 
 A RO Bundle is fundamentally not very different from an archived
-BagIt bag, except that in the RO Bundle, the `.ro/` is in the root
+BagIt bag, except that in the RO Bundle, the `metadata/` is in the root
 directory together with a marker `mimetype` file to help _mime magic_-like tools
 identify the file type.
 
@@ -198,13 +199,13 @@ mandates that a BagIt archive contains only a single directory when unpacked,
 which is the base directory of the bag. While in theory a hybrid RO Bundle and
 BagIt ZIP archive could exist, it would have to use the bag name `.ro` and
 could not include the `mimetype` file without a hack. In addition the
-payload would then be contained in `.ro/data/`, which is not what you would
+payload would then be contained in `metadata/data/`, which is not what you would
 expect from the RO Bundle specification.
 
 The approach shown here is a variation of RO Bundle which contains the
 Research Object within the bag of an arbitrary name, thus the RO manifest in a
 Research Object BagIt archive is in this example at
-[example1/.ro/manifest.json/](example1/.ro/manifest.json) rather than
+[example1/metadata/manifest.json/](example1/metadata/manifest.json) rather than
 `.ro/manifest.json`.
 
 The interpretation of `manifest.json` according to the
@@ -220,9 +221,10 @@ in this approach therefore uses only relative URI paths, e.g.
 manifest would have used `/data/analyse.py`.
 
 Developers can struggle to generate correct relative paths. An
-alternative approach to move `/.ro/manifest.json` to `/manifest.json`
+alternative approach to move `/metadata/manifest.json` to `/manifest.json`
 could improve on this, but would mean the manifest would no longer be
-directly usable also as an RO Bundle manifest.
+directly usable also as an RO Bundle manifest as its relative paths
+would differ.
 
 The [build.sh](build.sh#L22) script shows how this structure mean that a
 Research Object BagIt archive can be converted to a Research Object Bundle
@@ -232,7 +234,7 @@ A similar conversion from RO Bundle to Research Object BagIt would require
 moving its embedded resources to `data/` and rewrite the local paths in its
 manifest and annotations.
 
-Having two kinds of manifests (`.ro/manifest.json` and `.ro/manifest.json`)
+Having two kinds of manifests (`manifest-sha1.txt` and `metadata/manifest.json`)
 can be confusing, and can lead to inconsistency if a tool supporting only
 one of these kind is modifying an RO BagIt.  
 
@@ -249,7 +251,7 @@ and it is unclear if any whitespace
 
 An alternative approach to dual manifests could therefore be to
 structure the RO Manifest within `bag-info.txt`, e.g.
-with the complete `.ro/manifest.json` structure under a
+with the complete `metadata/manifest.json` structure under a
 [Research-Object](https://gist.github.com/stain/cc1046ad861b11bf3ba6#file-bag-info-txt-L14) key,
 which would still duplicate (and get out of sync) the list of paths under `aggregates`, and would
 require careful JSON parsing and writing to ensure the JSON is correctly
