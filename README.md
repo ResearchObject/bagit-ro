@@ -242,7 +242,7 @@ The `bag-info.txt` format supports some
 might seem archaic, "other arbitrary metadata elements may also be present.",
 allowing extensions. 
 
-For Research Object BagIt archives SHOULD specify the [BagIt profile](https://github.com/ruebot/bagit-profiles):
+Research Object BagIt archives SHOULD specify the bagit-ro [BagIt profile](https://github.com/ruebot/bagit-profiles):
 
 ```
     BagIt-Profile-Identifier: https://rawgit.com/ResearchObject/bagit-ro-ex1/master/profile.json
