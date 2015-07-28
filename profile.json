@@ -1,11 +1,11 @@
 {
    "BagIt-Profile-Info":{
-      "BagIt-Profile-Identifier":"https://gist.github.com/stain/5e233444517223c1f48e",
+      "BagIt-Profile-Identifier":"https://rawgit.com/ResearchObject/bagit-ro-ex1/master/profile.json",
       "Source-Organization":"researchobject.org",
       "Contact-Name":"Stian Soiland-Reyes",
       "Contact-Email":"soiland-reyes@cs.manchester.ac.uk",
       "External-Description":"BagIt profile for Research Objects. See https://github.com/ResearchObject/bagit-ro-ex1",
-      "Version":"0.1"
+      "Version":"0.1.20150728"
    },
    "Bag-Info": {
       "Bag-Size": {
