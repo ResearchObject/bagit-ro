@@ -65,7 +65,7 @@ its content.
 A [BagIt serialization](https://tools.ietf.org/html/draft-kunze-bagit-11#section-4)
 is typically a tar- or zip-file which contains the base folder.
 BagIt archives include at the root a subdirectory for the base folder of the
-bag, e.g. the ZIP file would contain `example1/bagit.txt`.g
+bag, e.g. the ZIP file would contain `example1/bagit.txt`.
 
 The [payload](https://tools.ietf.org/html/draft-kunze-bagit-11#section-2.1.2)
 of a bag is the files within a directory that
