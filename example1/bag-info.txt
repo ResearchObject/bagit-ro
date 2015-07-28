@@ -1,3 +1,4 @@
+BagIt-Profile-Identifier: https://rawgit.com/ResearchObject/bagit-ro-ex1/master/profile.json
 Source-Organization: Example inc.
 Organization-Address: 1 Example Way
   Example City
