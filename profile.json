@@ -1,0 +1,35 @@
+{
+   "BagIt-Profile-Info":{
+      "BagIt-Profile-Identifier":"https://rawgit.com/ResearchObject/bagit-ro-ex1/master/profile.json",
+      "Source-Organization":"researchobject.org",
+      "Contact-Name":"Stian Soiland-Reyes",
+      "Contact-Email":"soiland-reyes@cs.manchester.ac.uk",
+      "External-Description":"BagIt profile for Research Objects. See https://github.com/ResearchObject/bagit-ro-ex1",
+      "Version":"0.1.20150728"
+   },
+   "Bag-Info": {
+      "Bag-Size": {
+         "required":true
+      },
+      "Payload-Oxum":{
+         "required":true
+      }
+   },
+   "Manifests-Required":[
+      "md5", "sha1"
+   ],
+   "Allow-Fetch.txt": true,
+   "Serialization": "required",
+   "Accept-Serialization":[
+      "application/zip"
+   ],
+   "Tag-Manifests-Required":[
+     "md5", "sha1"
+   ],
+   "Tag-Files-Required":[
+     ".ro/manifest.json"
+   ],
+   "Accept-BagIt-Version":[
+      "0.97"
+   ]
+}

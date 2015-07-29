@@ -65,7 +65,7 @@ its content.
 A [BagIt serialization](https://tools.ietf.org/html/draft-kunze-bagit-11#section-4)
 is typically a tar- or zip-file which contains the base folder.
 BagIt archives include at the root a subdirectory for the base folder of the
-bag, e.g. the ZIP file would contain `example1/bagit.txt`.g
+bag, e.g. the ZIP file would contain `example1/bagit.txt`.
 
 The [payload](https://tools.ietf.org/html/draft-kunze-bagit-11#section-2.1.2)
 of a bag is the files within a directory that
@@ -242,7 +242,16 @@ The `bag-info.txt` format supports some
 [basic bag-level metadata](https://tools.ietf.org/html/draft-kunze-bagit-11#section-2.2.2), e.g.
 `Bagging-Date`, `Contact-Phone` and `Organization-Address`. While some of these
 might seem archaic, "other arbitrary metadata elements may also be present.",
-allowing extensions.
+allowing extensions. 
+
+Research Object BagIt archives SHOULD specify the bagit-ro [BagIt profile](https://github.com/ruebot/bagit-profiles):
+
+```
+    BagIt-Profile-Identifier: https://rawgit.com/ResearchObject/bagit-ro-ex1/master/profile.json
+```
+
+**FIXME:** Permanent URI for the bagit-ro profile
+
 
 The BagIt specification has no requirements for such alternative elements
 (e.g.  they are not [RFC 2822](https://tools.ietf.org/html/rfc2822) headers),
