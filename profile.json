@@ -5,7 +5,7 @@
       "Contact-Name":"Stian Soiland-Reyes",
       "Contact-Email":"soiland-reyes@cs.manchester.ac.uk",
       "External-Description":"BagIt profile for Research Objects. See https://w3id.org/ro/bagit",
-      "Version":"0.1.20160422"
+      "Version":"0.2.20160422"
    },
    "Bag-Info": {
       "Bag-Size": {
