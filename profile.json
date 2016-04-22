@@ -11,7 +11,7 @@
       "Bag-Size": {
          "required":true
       },
-      "Payload-Oxum":{
+      "Payload-Oxum": {
          "required":true
       }
    },
