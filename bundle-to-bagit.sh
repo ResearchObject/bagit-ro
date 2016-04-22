@@ -40,6 +40,7 @@ cd ..
 
 wget https://github.com/LibraryOfCongress/bagit-java/releases/download/v4.12.0/bagit-4.12.0.tar
 tar xfv bagit*tar
+# NOTE: The below won't run on tmpfs due to noexec mount flag
 bagit*/bin/bagit baginplace "$name"
 # or:
 #docker run -v "$tmpdir:/data" stain/bagit bag baginplace "$name"
