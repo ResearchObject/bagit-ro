@@ -1,6 +1,6 @@
 # Research Object BagIt archive
 
-[BagIt](https://tools.ietf.org/html/draft-kunze-bagit-11) is an Internet Draft
+[BagIt](https://tools.ietf.org/html/draft-kunze-bagit-13) is an Internet Draft
 that specifies a file system structure for transferring and archiving a
 collection of files, including their checksums and brief metadata.
 
@@ -17,11 +17,12 @@ identity, annotations and provenance of the resources. As such, the two
 formats complement each-other. They are however
 [not directly compatible](#considerations).
 
-This GitHub repository explains by example a profile for a BagIt bag to also be
+This GitHub repository explains by example a
+[profile](profile.json) for a BagIt bag to also be
 a Research Object. Feel free to
-[provide comments and raise issues](https://github.com/ResearchObject/bagit-ro-ex1/issues),
+[provide comments and raise issues](https://github.com/ResearchObject/bagit-ro/issues),
 or
-[suggest changes as pull requests](https://github.com/ResearchObject/bagit-ro-ex1/pulls).
+[suggest changes as pull requests](https://github.com/ResearchObject/bagit-ro/pulls).
 
 Run the `build.sh` script (requires `zip`, `md5sum`, `sha1sum`, `find`) to
 generate `example1.bagit.zip` and the corresponding `example1.bundle.zip`.
@@ -54,20 +55,20 @@ Overview of this example:
 
 ## BagIt overview
 
-A [bag](https://tools.ietf.org/html/draft-kunze-bagit-11#section-2)
-in [BagIt](https://tools.ietf.org/html/draft-kunze-bagit-11) is a base
+A [bag](https://tools.ietf.org/html/draft-kunze-bagit-13#section-2)
+in [BagIt](https://tools.ietf.org/html/draft-kunze-bagit-13) is a base
 folder (in this example [example1/](example1/)) that contains the
-[bagit declaration](https://tools.ietf.org/html/draft-kunze-bagit-11#section-2.1.1) in
+[bagit declaration](https://tools.ietf.org/html/draft-kunze-bagit-13#section-2.1.1) in
 [bagit.txt](example1/bagit.txt). A bag contains a _payload_, the data files
 that are being transferred, in addition to _tag files_, metadata for the bag and
 its content.
 
-A [BagIt serialization](https://tools.ietf.org/html/draft-kunze-bagit-11#section-4)
+A [BagIt serialization](https://tools.ietf.org/html/draft-kunze-bagit-13#section-4)
 is typically a tar- or zip-file which contains the base folder.
 BagIt archives include at the root a subdirectory for the base folder of the
 bag, e.g. the ZIP file would contain `example1/bagit.txt`.
 
-The [payload](https://tools.ietf.org/html/draft-kunze-bagit-11#section-2.1.2)
+The [payload](https://tools.ietf.org/html/draft-kunze-bagit-13#section-2.1.2)
 of a bag is the files within a directory that
 is always called [data](example1/data/). The `data` folder may
 contain arbitrary files and subdirectories. In this example we include a
@@ -78,7 +79,7 @@ a textual [README.md](example1/data/README.md) is included to describe this
 execution.
 
 The payload files are listed in one or more
-[manifest](https://tools.ietf.org/html/draft-kunze-bagit-11#section-2.1.3) files
+[manifest](https://tools.ietf.org/html/draft-kunze-bagit-13#section-2.1.3) files
 that provide hashes of the file content. The BagIt specification specifies the
 two most common hashing mechanisms _md5_ and _sha1_ to be represented by
 [manifest-md5.txt](example1/manifest-md5.txt) and
@@ -88,7 +89,7 @@ need to follow the `$hash $filename` pattern.
 
 Files that are too big to practically include in a BagIt archive
 can be
-[referenced externally](https://tools.ietf.org/html/draft-kunze-bagit-11#section-2.2.3)
+[referenced externally](https://tools.ietf.org/html/draft-kunze-bagit-13#section-2.2.3)
 in [fetch.txt](example1/fetch.txt), which includes the
 URLs to download, expected file size and destination filenames
 within the bag base directory.
@@ -104,9 +105,9 @@ specification what is the expected interpretation if a file in `fetch.txt`
 already exists in the bag's `data` directory.
 
 A bag can also contain
-[other tag files](https://tools.ietf.org/html/draft-kunze-bagit-11#section-2.2.4),
+[other tag files](https://tools.ietf.org/html/draft-kunze-bagit-13#section-2.2.4),
 which would be listed in a separate
-[tag manifest](https://tools.ietf.org/html/draft-kunze-bagit-11#section-2.2.1),
+[tag manifest](https://tools.ietf.org/html/draft-kunze-bagit-13#section-2.2.1),
 e.g. [tagmanifest-md5.txt](example1/tagmanifest-md5.txt) and
 [tagmanifest-sha1.txt](example1/tagmanifest-sha1.txt). In this example, the tag manifest
 lists the content of the [metadata](example1/metadata/) directory.
@@ -128,13 +129,13 @@ and [W3C PROV](http://www.w3.org/TR/prov-o/).
 Serialized as a
 [Research Object Bundle](https://w3id.org/bundle/), some or all of those
 resources are included in the encapsulating ZIP archive together
-with a [JSON-LD](http://json-ld.org/) manifest, 
+with a [JSON-LD](http://json-ld.org/) manifest,
 [metadata/manifest.json](example1/metadata/manifest.json).
 
 A Research Object BagIt archive follows the same structure as an Research Object
 Bundle, except that the base directory is the bag base (e.g. `example1/`),
-rather than the root folder of the ZIP archive (`/`). The RO Bundle's 
-`metadata/` folder is instead called `metadata/` in a Research Object BagIt.
+rather than the root folder of the ZIP archive (`/`). The RO Bundle's
+`.ro/` folder is instead called `metadata/` in a Research Object BagIt.
 
 The [aggregates](example1/metadata/manifest.json#L10) section of the manifest
 list the payload files, both embedded (e.g. `../data/numbers.csv`) and
@@ -170,15 +171,23 @@ In this example,
 provide semantic annotations of [../data/numbers.csv](example1/data/numbers.csv)
 in JSON-LD format.
 
-It is customary in Research Object Bundles for non-payload files to not be
-listed under `aggregates` and to be stored under `metadata/`. In Research Object
-BagIt archives follow this convention, in addition the payload files
+It is customary in Research Object Bundles for non-payload (metadata)
+files to not be listed under `aggregates` and to be stored under `.ro/`.
+Research Object BagIt archives follow this convention (using `metadata/`),
+and in addition the payload files
 must exclusively be within the `data/` folder (or be external URLs).
 The `metadata/` content is listed in the
 [tag manifest](example1/tagmanifest-md5.txt), while the
-payload is listed under in the [payload manifest](example1/manifest-md5.txt)
+`data/` payload is listed in the [payload manifest](example1/manifest-md5.txt)
 with external URLs in the [fetch file](example1/fetch.txt).
 
+
+Research Object BagIt archives SHOULD specify the [BagIt profile](https://github.com/ruebot/bagit-profiles)
+for bagit-ro within `bag-info.txt` as:
+
+```
+BagIt-Profile-Identifier: https://w3id.org/ro/bagit/profile
+```
 
 ## Considerations
 
@@ -190,19 +199,20 @@ The combination of BagIt and Research Object adds:
 * Graceful degradation/conversion to plain BagIt or RO Bundle
 
 A RO Bundle is fundamentally not very different from an archived
-BagIt bag, except that in the RO Bundle, the `metadata/` is in the root
+BagIt bag, except that in the RO Bundle, the `ro/` is in the root
 directory together with a marker `mimetype` file to help _mime magic_-like tools
 identify the file type.
 
-[BagIt serialization](https://tools.ietf.org/html/draft-kunze-bagit-11#section-4)
+[BagIt serialization](https://tools.ietf.org/html/draft-kunze-bagit-13#section-4)
 mandates that a BagIt archive contains only a single directory when unpacked,
 which is the base directory of the bag. While in theory a hybrid RO Bundle and
 BagIt ZIP archive could exist, it would have to use the bag name `.ro` and
-could not include the `mimetype` file without a hack. In addition the
-payload would then be contained in `metadata/data/`, which is not what you would
-expect from the RO Bundle specification.
+could not include the `mimetype` file (without a binary zip file hack).
+In addition the payload would then be contained in `.ro/data/`,
+which is not what you would expect from the RO Bundle specification
+and which would hide all content from Unix/Linux users.
 
-The approach shown here is a variation of RO Bundle which contains the
+The approach shown here is therefore a variation of RO Bundle which contains the
 Research Object within the bag of an arbitrary name, thus the RO manifest in a
 Research Object BagIt archive is in this example at
 [example1/metadata/manifest.json/](example1/metadata/manifest.json) rather than
@@ -223,7 +233,7 @@ manifest would have used `/data/analyse.py`.
 Developers can struggle to generate correct relative paths. An
 alternative approach to move `/metadata/manifest.json` to `/manifest.json`
 could improve on this, but would mean the manifest would no longer be
-directly usable also as an RO Bundle manifest as its relative paths
+easily usable also as an RO Bundle manifest as its relative paths
 would differ.
 
 The [build.sh](build.sh#L22) script shows how this structure mean that a
@@ -232,48 +242,23 @@ by adding the `mimetype` file and simply archiving from within the bag directory
 
 A similar conversion from RO Bundle to Research Object BagIt would require
 moving its embedded resources to `data/` and rewrite the local paths in its
-manifest and annotations.
+manifest and annotations. See [bundle-to-bagit.sh](bundle-to-bagit.sh) for an example.
 
 Having two kinds of manifests (`manifest-sha1.txt` and `metadata/manifest.json`)
 can be confusing, and can lead to inconsistency if a tool supporting only
 one of these kind is modifying an RO BagIt.  
 
 The `bag-info.txt` format supports some
-[basic bag-level metadata](https://tools.ietf.org/html/draft-kunze-bagit-11#section-2.2.2), e.g.
+[basic bag-level metadata](https://tools.ietf.org/html/draft-kunze-bagit-13#section-2.2.2), e.g.
 `Bagging-Date`, `Contact-Phone` and `Organization-Address`. While some of these
 might seem archaic, "other arbitrary metadata elements may also be present.",
-allowing extensions. 
-
-Research Object BagIt archives SHOULD specify the bagit-ro [BagIt profile](https://github.com/ruebot/bagit-profiles):
-
-```
-    BagIt-Profile-Identifier: https://rawgit.com/ResearchObject/bagit-ro-ex1/master/profile.json
-```
-
-**FIXME:** Permanent URI for the bagit-ro profile
-
+allowing extensions.
 
 The BagIt specification has no requirements for such alternative elements
 (e.g.  they are not [RFC 2822](https://tools.ietf.org/html/rfc2822) headers),
 and it is unclear if any whitespace
 (e.g. newlines and indentation) form part of the BagIt values or not.
 
-An alternative approach to dual manifests could therefore be to
-structure the RO Manifest within `bag-info.txt`, e.g.
-with the complete `metadata/manifest.json` structure under a
-[Research-Object](https://gist.github.com/stain/cc1046ad861b11bf3ba6#file-bag-info-txt-L14) key,
-which would still duplicate (and get out of sync) the list of paths under `aggregates`, and would
-require careful JSON parsing and writing to ensure the JSON is correctly
-interpreted as a single BagIt element value.
-The value of this is mainly for manual BagIt consumption, as BagIt tools would
-not recognize the need to update the `Research-Object` element. This would
-however come at a cost of being harder to read/write the JSON-LD manifest,
-and would not preserve the immediate interoperability with RO Bundles.
-
-An approach of split out of [multiple `RO-*`` keys](https://gist.github.com/stain/23080e58158a62533052)
-is not particularly promising, even if it would get rid of the `aggregates`
-duplication.  The difficulty here is that `bag-info.txt` is not
-hierarchical, and so per-file provenande and annotations are hard
-to structure without defining a mini-syntax per field with clear
-escape rules (e.g. catering for filenames with spaces). It would also no
-longer be possible to extend the manifest with custom vocabularies.
+It is recommended that only the basic metadata is provided in `bag-info.txt`,
+while more structured metadata and provenance should be
+provided in the Research Object manifest or annotations.
