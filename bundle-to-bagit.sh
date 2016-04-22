@@ -36,6 +36,10 @@ sed -i 's,"/,"../,' metadata/manifest.json
 echo BagIt-Version: 0.97 > bagit.txt
 echo Tag-File-Character-Encoding: UTF-8 >> bagit.txt
 
+# or
+#   wget https://github.com/LibraryOfCongress/bagit-java/releases/download/v4.12.0/bagit-4.12.0.tar
+#   tar xfv bagit*tar
+#   bagit*/bin/bagit baginplace "$name"
 docker run -v "$tmpdir:/data" stain/bagit bag baginplace "$name"
 
 cd ..
