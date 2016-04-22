@@ -36,6 +36,9 @@ sed -i 's,"/,"../,' metadata/manifest.json
 echo BagIt-Version: 0.97 > bagit.txt
 echo Tag-File-Character-Encoding: UTF-8 >> bagit.txt
 
+# that comply with https://github.com/ResearchObject/bagit-ro
+echo BagIt-Profile-Identifier: https://w3id.org/ro/bagit/profile > bag-info.txt
+
 cd ..
 
 wget https://github.com/LibraryOfCongress/bagit-java/releases/download/v4.12.0/bagit-4.12.0.tar
