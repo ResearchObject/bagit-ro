@@ -1,6 +1,7 @@
 # Research Object BagIt archive
 
-Document identifier: https://w3id.org/ro/bagit
+* Document identifier: https://w3id.org/ro/bagit
+* Author: Stian Soiland-Reyes orcid.org/0000-0001-9842-9718
 
 [BagIt](https://tools.ietf.org/html/draft-kunze-bagit-13) is an Internet Draft
 that specifies a file system structure for transferring and archiving a
