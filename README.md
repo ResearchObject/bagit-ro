@@ -1,5 +1,7 @@
 # Research Object BagIt archive
 
+Document identifier: https://w3id.org/ro/bagit
+
 [BagIt](https://tools.ietf.org/html/draft-kunze-bagit-13) is an Internet Draft
 that specifies a file system structure for transferring and archiving a
 collection of files, including their checksums and brief metadata.
