@@ -3,7 +3,7 @@
 * Document identifier: https://w3id.org/ro/bagit
 * Author: Stian Soiland-Reyes http://orcid.org/0000-0001-9842-9718
 
-[BagIt](https://tools.ietf.org/html/draft-kunze-bagit-13) is an Internet Draft
+[BagIt](https://tools.ietf.org/html/draft-kunze-bagit-14) is an Internet Draft
 that specifies a file system structure for transferring and archiving a
 collection of files, including their checksums and brief metadata.
 
@@ -58,20 +58,20 @@ Overview of this example:
 
 ## BagIt overview
 
-A [bag](https://tools.ietf.org/html/draft-kunze-bagit-13#section-2)
-in [BagIt](https://tools.ietf.org/html/draft-kunze-bagit-13) is a base
+A [bag](https://tools.ietf.org/html/draft-kunze-bagit-14#section-2)
+in [BagIt](https://tools.ietf.org/html/draft-kunze-bagit-14) is a base
 folder (in this example [example1/](example1/)) that contains the
-[bagit declaration](https://tools.ietf.org/html/draft-kunze-bagit-13#section-2.1.1) in
+[bagit declaration](https://tools.ietf.org/html/draft-kunze-bagit-14#section-2.1.1) in
 [bagit.txt](example1/bagit.txt). A bag contains a _payload_, the data files
 that are being transferred, in addition to _tag files_, metadata for the bag and
 its content.
 
-A [BagIt serialization](https://tools.ietf.org/html/draft-kunze-bagit-13#section-4)
+A [BagIt serialization](https://tools.ietf.org/html/draft-kunze-bagit-14#section-4)
 is typically a tar- or zip-file which contains the base folder.
 BagIt archives include at the root a subdirectory for the base folder of the
 bag, e.g. the ZIP file would contain `example1/bagit.txt`.
 
-The [payload](https://tools.ietf.org/html/draft-kunze-bagit-13#section-2.1.2)
+The [payload](https://tools.ietf.org/html/draft-kunze-bagit-14#section-2.1.2)
 of a bag is the files within a directory that
 is always called [data](example1/data/). The `data` folder may
 contain arbitrary files and subdirectories. In this example we include a
@@ -82,7 +82,7 @@ a textual [README.md](example1/data/README.md) is included to describe this
 execution.
 
 The payload files are listed in one or more
-[manifest](https://tools.ietf.org/html/draft-kunze-bagit-13#section-2.1.3) files
+[manifest](https://tools.ietf.org/html/draft-kunze-bagit-14#section-2.1.3) files
 that provide hashes of the file content. The BagIt specification specifies the
 two most common hashing mechanisms _md5_ and _sha1_ to be represented by
 [manifest-md5.txt](example1/manifest-md5.txt) and
@@ -92,7 +92,7 @@ need to follow the `$hash $filename` pattern.
 
 Files that are too big to practically include in a BagIt archive
 can be
-[referenced externally](https://tools.ietf.org/html/draft-kunze-bagit-13#section-2.2.3)
+[referenced externally](https://tools.ietf.org/html/draft-kunze-bagit-14#section-2.2.3)
 in [fetch.txt](example1/fetch.txt), which includes the
 URLs to download, expected file size and destination filenames
 within the bag base directory.
@@ -108,9 +108,9 @@ specification what is the expected interpretation if a file in `fetch.txt`
 already exists in the bag's `data` directory.
 
 A bag can also contain
-[other tag files](https://tools.ietf.org/html/draft-kunze-bagit-13#section-2.2.4),
+[other tag files](https://tools.ietf.org/html/draft-kunze-bagit-14#section-2.2.4),
 which would be listed in a separate
-[tag manifest](https://tools.ietf.org/html/draft-kunze-bagit-13#section-2.2.1),
+[tag manifest](https://tools.ietf.org/html/draft-kunze-bagit-14#section-2.2.1),
 e.g. [tagmanifest-md5.txt](example1/tagmanifest-md5.txt) and
 [tagmanifest-sha1.txt](example1/tagmanifest-sha1.txt). In this example, the tag manifest
 lists the content of the [metadata](example1/metadata/) directory.
@@ -206,7 +206,7 @@ BagIt bag, except that in the RO Bundle, the `ro/` is in the root
 directory together with a marker `mimetype` file to help _mime magic_-like tools
 identify the file type.
 
-[BagIt serialization](https://tools.ietf.org/html/draft-kunze-bagit-13#section-4)
+[BagIt serialization](https://tools.ietf.org/html/draft-kunze-bagit-14#section-4)
 mandates that a BagIt archive contains only a single directory when unpacked,
 which is the base directory of the bag. While in theory a hybrid RO Bundle and
 BagIt ZIP archive could exist, it would have to use the bag name `.ro` and
@@ -252,7 +252,7 @@ can be confusing, and can lead to inconsistency if a tool supporting only
 one of these kind is modifying an RO BagIt.  
 
 The `bag-info.txt` format supports some
-[basic bag-level metadata](https://tools.ietf.org/html/draft-kunze-bagit-13#section-2.2.2), e.g.
+[basic bag-level metadata](https://tools.ietf.org/html/draft-kunze-bagit-14#section-2.2.2), e.g.
 `Bagging-Date`, `Contact-Phone` and `Organization-Address`. While some of these
 might seem archaic, "other arbitrary metadata elements may also be present.",
 allowing extensions.
