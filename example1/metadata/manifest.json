@@ -47,7 +47,7 @@
   ],
 
   "annotations": [
-    { "about": ["../data/analyse.py", "../data/numbers.csv", "../results.txt"],
+    { "about": ["../data/analyse.py", "../data/numbers.csv", "../data/results.txt"],
       "content": "../data/README.md",
       "oa:motivatedBy": "oa:describing"
     },
