@@ -197,7 +197,7 @@ BagIt-Profile-Identifier: https://w3id.org/ro/bagit/profile
 The combination of BagIt and Research Object adds:
 
 * RO consistency with checksums for payload and metadata
-* Structured metadata, provenande and annotations for the bag and its content
+* Structured metadata, provenance and annotations for the bag and its content
   * With extensions in JSON-LD using any Linked Data vocabulary
 * Graceful degradation/conversion to plain BagIt or RO Bundle
 
