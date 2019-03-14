@@ -3,12 +3,10 @@ set -e
 cd example1
 #curl https://gist.githubusercontent.com/anonymous/7fe620279ea4988a5a1e/raw/e55d9ea6af35ea67cfaf47b03a2b71f9026325fd/external.txt > data/external.txt
 
-md5sum data/* > manifest-md5.txt
-sha1sum data/* > manifest-sha1.txt
+sha256sum data/* > manifest-sha256.txt
 rm -f data/external.txt # :)
 
-find metadata -type f | xargs md5sum > tagmanifest-md5.txt
-find metadata -type f | xargs sha1sum > tagmanifest-sha1.txt
+find metadata -type f | xargs sha256sum > tagmanifest-sha256.txt
 
 cd ..
 BAGIT=example1.bagit.zip
