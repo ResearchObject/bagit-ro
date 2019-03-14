@@ -1,4 +1,4 @@
-BagIt-Profile-Identifier: https://w3id.org/ro/bagit/profile
+BagIt-Profile-Identifier: https://w3id.org/ro/bagit/profile/0.3
 Source-Organization: Example inc.
 Organization-Address: 1 Example Way
   Example City
@@ -8,7 +8,7 @@ Contact-Email: john.doe@example.com
 Contact-Phone: +1-212-555-1337
 External-Description: This is an example of a BagIt container that is also
  a Research Object.
-Bagging-Date: 2015-07-02
+Bagging-Date: 2019-03-14
 External-Identifier: urn:uuid:47556604-d646-4a17-a39c-cdf752378feb
 Bag-Size: 1 kB
 Payload-Oxum: 588.4
