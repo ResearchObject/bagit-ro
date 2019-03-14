@@ -3,9 +3,9 @@
       "BagIt-Profile-Identifier":"https://w3id.org/ro/bagit/profile",
       "Source-Organization":"researchobject.org",
       "Contact-Name":"Stian Soiland-Reyes",
-      "Contact-Email":"soiland-reyes@cs.manchester.ac.uk",
+      "Contact-Email":"soiland-reyes@manchester.ac.uk",
       "External-Description":"BagIt profile for Research Objects. See https://w3id.org/ro/bagit",
-      "Version":"0.2.20160422"
+      "Version":"0.3.20190314"
    },
    "Bag-Info": {
       "Bag-Size": {
@@ -16,7 +16,7 @@
       }
    },
    "Manifests-Required":[
-      "md5", "sha1"
+      "sha256", "sha512"
    ],
    "Allow-Fetch.txt": true,
    "Serialization": "required",
@@ -26,12 +26,12 @@
       "application/x-tar+gzip"
    ],
    "Tag-Manifests-Required":[
-     "md5", "sha1"
+     "sha256", "sha512"
    ],
    "Tag-Files-Required":[
      "metadata/manifest.json"
    ],
    "Accept-BagIt-Version":[
-      "0.97"
+      "0.97", "1.0"
    ]
 }
