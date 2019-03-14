@@ -1,6 +1,6 @@
 {
    "BagIt-Profile-Info":{
-      "BagIt-Profile-Identifier":"https://w3id.org/ro/bagit/profile",
+      "BagIt-Profile-Identifier":"https://w3id.org/ro/bagit/profile/0.3",
       "Source-Organization":"researchobject.org",
       "Contact-Name":"Stian Soiland-Reyes",
       "Contact-Email":"soiland-reyes@manchester.ac.uk",
