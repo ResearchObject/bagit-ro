@@ -1,37 +1,47 @@
 {
    "BagIt-Profile-Info":{
-      "BagIt-Profile-Identifier":"https://w3id.org/ro/bagit/profile/0.3",
+      "BagIt-Profile-Version": "1.3.0", 
+      "BagIt-Profile-Identifier":"https://w3id.org/ro/bagit/profile/0.4",
       "Source-Organization":"researchobject.org",
       "Contact-Name":"Stian Soiland-Reyes",
       "Contact-Email":"soiland-reyes@manchester.ac.uk",
-      "External-Description":"BagIt profile for Research Objects. See https://w3id.org/ro/bagit",
-      "Version":"0.3.20190314"
+      "External-Description":"BagIt profile for Research Objects. The main requirements are the presense of an RO-Crate Metadata file, see https://w3id.org/ro/crate/ https://www.researchobject.org/ro-crate/1.1/appendix/implementation-notes.html#combining-with-other-packaging-schemes https://w3id.org/ro/bagit",
+      "Version":"0.4.0"
    },
    "Bag-Info": {
       "Bag-Size": {
-         "required":true
+         "required":true,
+         "repeatable": false,
+         "description": "Human-readable approximate size of the bag being transferred, e.g. 1.4 GB"
       },
       "Payload-Oxum": {
-         "required":true
+         "required":true,
+         "repeatable": false,
+         "description": "The octetstream sum of the payload according to https://www.rfc-editor.org/rfc/rfc8493#section-2.2.2"
+      },
+      "External-Identifier": {
+         "required": false,
+         "repeatable": false,
+         "description": "Recommended to be a UUID URN (RFC4122) to uniquely identify this archive, e.g. urn:uuid:24e51ca2-5067-4598-935a-dac4e327d05a -- see https://www.researchobject.org/ro-crate/1.1/appendix/implementation-notes.html#base-uri-in-bagit https://datatracker.ietf.org/doc/html/draft-soilandreyes-arcp-03#appendix-A.4"
       }
    },
    "Manifests-Required":[
-      "sha256", "sha512"
+      "sha512"
    ],
    "Allow-Fetch.txt": true,
-   "Serialization": "required",
+   "Serialization": "optional",
    "Accept-Serialization":[
       "application/zip",
       "application/x-tar",
       "application/x-tar+gzip"
    ],
    "Tag-Manifests-Required":[
-     "sha256", "sha512"
+       "sha512"
    ],
-   "Tag-Files-Required":[
-     "metadata/manifest.json"
+   "Payload-Files-Required":[
+     "data/ro-crate-metadata.json"
    ],
    "Accept-BagIt-Version":[
-      "0.97", "1.0"
+      "1.0"
    ]
 }
