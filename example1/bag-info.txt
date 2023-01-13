@@ -8,8 +8,8 @@ Contact-Email: john.doe@example.com
 Contact-Phone: +1-212-555-1337
 External-Description: This is an example of a BagIt container that is also
  a Research Object.
-Bagging-Date: 2019-03-14
-External-Identifier: urn:uuid:47556604-d646-4a17-a39c-cdf752378feb
-Bag-Size: 1 kB
-Payload-Oxum: 588.4
+Bagging-Date: 2023-01-13
+External-Identifier: urn:uuid:b5f0b536-956d-44fa-85a2-f3210635bf6a
+Bag-Size: 68 kB
+Payload-Oxum: 27115.6
 X-Arbitrary-Field: Any kind of field can be included - no schema required
