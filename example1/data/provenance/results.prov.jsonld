@@ -1,10 +1,10 @@
 { "@context": { "prov": "http://www.w3.org/ns/prov#"},
-  "@id": "../../data/results.txt",
+  "@id": "../results.txt",
   "@type": "prov:Entity",
   "prov:wasGeneratedBy": {
     "@type": "prov:Activity",
-    "prov:hadPlan": { "@id": "../../data/analyse.py"},
-    "prov:used": {"@id": "../../data/numbers.csv"},
+    "prov:hadPlan": { "@id": "../analyse.py"},
+    "prov:used": {"@id": "../numbers.csv"},
     "prov:endedAtTime": "2015-07-02T11:00:00Z"
   }
 }

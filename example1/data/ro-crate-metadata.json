@@ -1,0 +1,158 @@
+{
+    "@context": "https://w3id.org/ro/crate/1.1/context",
+    "@graph": [
+      {
+        "@id": "ro-crate-metadata.json",
+        "@type": "CreativeWork",
+        "conformsTo": { "@id": "https://w3id.org/ro/crate/1.1" },
+        "about": { "@id": "./" }
+      },
+      {
+        "@id": "./",
+        "@type": "Dataset",
+        "conformsTo": [
+            { "@id": "https://w3id.org/cpm/ro-crate/0.1" },
+            { "@id": "https://w3id.org/ro/wfrun/process/0.1" }
+        ],
+        "name": "Brew analysis (bagit-ro example 1)",
+        "description": "This is an example RO-Crate to be used with the Research Object BagIt profile.",
+        "url": "https://w3id.org/ro/bagit",
+        "author": { "@id": "https://orcid.org/0000-0001-9842-9718" },
+        "license": { "@id": "https://spdx.org/licenses/CC0-1.0" },
+        "hasPart": [
+            { "@id": "analyse.py" },
+            { "@id": "numbers.csv" },
+            { "@id": "results.txt" },
+            { "@id": "README.md" },
+            { "@id": "external.txt" },
+            { "@id": "https://example.com/bigger" }
+        ],
+        "mentions": [
+          { "@id": "#pythonrun" },
+          { "@id": "provenance/results.prov.jsonld" }          
+        ]
+      },
+      {
+        "@id": "analyse.py",
+        "@type": ["File", "SoftwareSourceCode"],
+        "name": "Brew analysis Python script",
+        "programmingLanguage": { "@id": "https://www.python.org/downloads/release/python-270/" }
+      },
+      { 
+        "@id": "numbers.csv",
+        "@type": "File",
+        "name": "Beverage consumption CSV data",
+        "description": "A CSV file listing the number of cups/mugs consumed per person",
+        "encodingFormat": "text/csv",
+        "variableMeasured": [
+            { "@id": "#column1" },
+            { "@id": "#column2" },
+            { "@id": "#column3" }
+        ]
+      },
+      { 
+        "@id": "results.txt",
+        "@type": "File",
+        "name": "Results of analysing brew consumption",
+        "encodingFormat": "text/plain"
+      },
+      { 
+        "@id": "README.md",
+        "@type": "File",
+        "name": "Instructions for running script",
+        "encodingFormat": "text/markdown",
+        "about": [
+            { "@id": "numbers.csv" },
+            { "@id": "analyse.py" },
+            { "@id": "results.txt" }
+        ]
+      },
+      { 
+        "@id": "external.txt",
+        "@type": "File",
+        "name": "Example of an external file",
+        "description": "This is an example of an external, potentially very large/secure file, which is conceptually part of the RO-Crate Root directory, but not yet present in the BagIt payload directory. fetch.txt specifies how to retrieve it, and expected checksum is specified in manifest-sha256.txt",
+        "url": "https://gist.githubusercontent.com/anonymous/7fe620279ea4988a5a1e/raw/e55d9ea6af35ea67cfaf47b03a2b71f9026325fd/external.txt"
+      },
+      { 
+        "@id": "provenance/results.prov.jsonld",
+        "@type": "File",
+        "name": "Provenance of analyse.py execution",
+        "about": { "@id": "results.txt" },
+        "encodingFormat": [
+            "application/ld+json",
+            { "@id": "http://www.w3.org/TR/2013/REC-prov-o-20130430/" }
+        ]
+      },  
+      {
+        "@id": "#pythonrun",
+        "@type": "CreateAction",
+        "name": "Execution of Python script",
+        "description": "python2 analyse.py",
+        "endTime": "2015-07-02T11:00:00Z",        
+        "instrument": { "@id": "analyse.py" },
+        "object": { "@id": "numbers.csv" },
+        "result": { "@id": "results.txt" },
+        "agent": { "@id": "https://orcid.org/0000-0001-9842-9718" }
+      },      
+      { 
+        "@id": "#column1",
+        "@type": "PropertyValue",
+        "name": "Name",        
+        "description": "Name of the participant drinking a brew"
+      },
+      { 
+        "@id": "#column2",
+        "@type": "PropertyValue",
+        "name": "Coffee",
+        "unitText": "cups",  
+        "description": "Amount of cups of coffee consumed"
+      },
+      { 
+        "@id": "#column3",
+        "@type": "PropertyValue",
+        "name": "Tea",
+        "unitText": "cups",   
+        "description": "Amount of cups of tea consumed"
+      },
+      { 
+        "@id": "https://example.com/bigger",
+        "@type": "WebPage",
+        "name": "Example of an external web resource that is also considered part of this crate, but which is neither in the RO-Crate Root nor fetch.txt, and thus not subject to any checkssums"
+      },      
+      {
+        "@id": "https://www.python.org/downloads/release/python-270/",
+        "@type": ["ComputerLanguage", "SoftwareApplication"],
+        "name": "Python 2.7.0",
+        "version": "2.7.0"
+      },
+      { 
+        "@id": "http://www.w3.org/TR/2013/REC-prov-o-20130430/", 
+        "@type": "CreativeWork",
+        "name": "PROV-O format"
+      },
+      {
+        "@id": "https://orcid.org/0000-0001-9842-9718",
+        "@type": "Person",
+        "name": "Stian Soiland-Reyes"
+      },
+      {
+        "@id": "https://spdx.org/licenses/CC0-1.0",
+        "@type": "CreativeWork",
+        "identifier": "CC0-1.0",
+        "name": "Creative Commons Zero v1.0 Universal",
+        "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      { 
+        "@id": "https://w3id.org/cpm/ro-crate/0.1",
+        "@type": "CreativeWork", 
+        "name": "Common Provenance Model RO-Crate profile"
+      },
+      { 
+        "@id": "https://w3id.org/ro/wfrun/process/0.1",
+        "@type": "CreativeWork", 
+        "name": "Process Run Crate profile"
+      }
+    ]
+}
+
